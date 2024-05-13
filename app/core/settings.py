@@ -1,3 +1,4 @@
+import mongoengine
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -65,10 +66,14 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        'NAME': 'breadfactory',
+        'HOST': '127.0.0.1',
+        'PORT': 27017,
+        'MONGO_URI': "mongodb://admin:mypwd@127.0.0.1:27017/breadfactory"
     }
 }
+# mongoengine.connect(db="breadfactory", host=f"mongodb://localhost:27017/")
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
