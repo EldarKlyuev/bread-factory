@@ -4,7 +4,7 @@ from django.db import models
 class Orders(models.Model):
     code_orders = models.IntegerField(blank=False, null=False)
     number = models.IntegerField(blank=False, null=False)
-    date = models.DateField(blank=False, null=False)
+    date = models.DateField(blank=False, null=False, auto_now=True)
     summary = models.IntegerField(blank=False, null=False)
     code_items = models.IntegerField(blank=False, null=False)
 
@@ -46,15 +46,15 @@ class Factors(models.Model):
 
 class Production(models.Model):
     code_items = models.IntegerField(blank=False, null=False)
-    date = models.DateField(blank=False, null=False)
+    date = models.DateField(blank=False, null=False, auto_now=True)
     is_ready = models.BooleanField(blank=False, null=False)
 
     def __str__(self):
         return self.code_items
 
     class Meta:
-        verbose_name = 'Цеха'
-        verbose_name_plural = 'Цеха'
+        verbose_name = 'Продукция'
+        verbose_name_plural = 'Продукция'
 
 
 class Orderers(models.Model):
