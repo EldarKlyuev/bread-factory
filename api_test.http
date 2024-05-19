@@ -1,0 +1,11 @@
+POST http://localhost:8000/api/v1/item/
+Content-Type: application/json
+
+{
+  "code_items": 4,
+  "name": "Hleb",
+  "weight": 45,
+  "code_factor": 3
+}
+
+###
