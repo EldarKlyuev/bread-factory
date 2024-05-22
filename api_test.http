@@ -10,6 +10,11 @@ Content-Type: application/json
 
 ###
 
+GET http://localhost:8000/api/v1/item/
+Content-Type: application/json
+
+###
+
 POST http://localhost:8000/api/v1/order/
 Content-Type: application/json
 
@@ -22,12 +27,22 @@ Content-Type: application/json
 
 ###
 
+GET http://localhost:8000/api/v1/order/
+Content-Type: application/json
+
+###
+
 POST http://localhost:8000/api/v1/orderer/
 Content-Type: application/json
 
 {
   "name": "AGM ENT"
 }
+
+###
+
+GET http://localhost:8000/api/v1/orderer/
+Content-Type: application/json
 
 ###
 
@@ -38,8 +53,13 @@ Content-Type: application/json
   "num_factors": 4,
   "type_item": "Hlebushek",
   "sort_muka": "Pshenichnaya",
-  "sum_of_worker": 50
+  "sum_of_workers": 50
 }
+
+###
+
+GET http://localhost:8000/api/v1/factor/
+Content-Type: application/json
 
 ###
 
@@ -50,3 +70,10 @@ Content-Type: application/json
   "code_items": 4,
   "is_ready": "true"
 }
+
+###
+
+GET http://localhost:8000/api/v1/production/
+Content-Type: application/json
+
+###
