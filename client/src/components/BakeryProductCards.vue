@@ -31,6 +31,13 @@
         <h3>{{ factor.type_item }}</h3>
       </div>
     </div>
+
+    <h2>Продукция</h2>
+    <div class="card-container">
+      <div class="card" v-for="production in productions" :key="production.id">
+        <h3>{{ production.code_items }}</h3>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -43,7 +50,8 @@ export default {
       products: [],
       orders: [],
       factors: [],
-      orderers: []
+      orderers: [],
+      productions: []
     };
   },
   mounted() {
@@ -51,6 +59,7 @@ export default {
     this.fetchOrders();
     this.fetchOrderers();
     this.fetchFactors();
+    this.fetchProduction();
   },
   methods: {
     async fetchProducts() {
@@ -92,8 +101,19 @@ export default {
             'Content-Type': 'application/json'
           }
         });
-        console.log(response.data)
         this.factors = response.data;
+      } catch (error) {
+        console.error('Ошибка при загрузке данных заказов:', error);
+      }
+    },
+    async fetchProduction() {
+      try {
+        const response = await axios.get('http://localhost:8000/api/v1/production/', {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        this.productions = response.data;
       } catch (error) {
         console.error('Ошибка при загрузке данных заказов:', error);
       }
