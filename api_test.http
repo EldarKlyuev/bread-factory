@@ -46,11 +46,6 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:8000/api/v1/orderer/2/
-Content-Type: application/json
-
-###
-
 POST http://localhost:8000/api/v1/factor/
 Content-Type: application/json
 

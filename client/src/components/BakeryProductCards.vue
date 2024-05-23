@@ -202,7 +202,7 @@ export default {
 .user-info {
   position: absolute;
   top: 10px;
-  left: 80%;
+  left: 90%;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
