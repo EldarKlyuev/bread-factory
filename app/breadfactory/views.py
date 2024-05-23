@@ -34,6 +34,14 @@ class ItemApiView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+    def delete(self, request, *args, **kwargs):
+        pk = kwargs.get("pk", None)
+        if not pk:
+            return Response({"error": "Method DELETE not allowed"}, status=405)
+        que = Items.objects.get(pk=pk)
+        que.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class OrderApiView(APIView):
     def get(self, request):
@@ -49,6 +57,14 @@ class OrderApiView(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def delete(self, request, *args, **kwargs):
+        pk = kwargs.get("pk", None)
+        if not pk:
+            return Response({"error": "Method DELETE not allowed"}, status=405)
+        que = Orders.objects.get(pk=pk)
+        que.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class FactorApiView(APIView):
@@ -68,6 +84,14 @@ class FactorApiView(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    def delete(self, request, *args, **kwargs):
+        pk = kwargs.get("pk", None)
+        if not pk:
+            return Response({"error": "Method DELETE not allowed"}, status=405)
+        que = Factors.objects.get(pk=pk)
+        que.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class ProductionApiView(APIView):
     def get(self, request):
@@ -84,6 +108,14 @@ class ProductionApiView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+    def delete(self, request, *args, **kwargs):
+        pk = kwargs.get("pk", None)
+        if not pk:
+            return Response({"error": "Method DELETE not allowed"}, status=405)
+        que = Production.objects.get(pk=pk)
+        que.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class OrdererApiView(APIView):
     def get(self, request):
@@ -99,3 +131,11 @@ class OrdererApiView(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def delete(self, request, *args, **kwargs):
+        pk = kwargs.get("pk", None)
+        if not pk:
+            return Response({"error": "Method DELETE not allowed"}, status=405)
+        que = Orderers.objects.get(pk=pk)
+        que.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

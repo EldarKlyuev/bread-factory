@@ -9,6 +9,7 @@
     <h2>Изделия</h2>
     <div class="card-container">
       <div class="card" v-for="item in items" :key="item.id">
+        <button class="delete-button" @click="deleteItem(item.id)">×</button>
         <h3>Код изделия: {{ item.id }}</h3>
         <h3>Название: {{ item.name }}</h3>
         <h3>Вес изделия: {{ item.weight }}</h3>
@@ -18,6 +19,7 @@
     <h2>Заказы</h2>
     <div class="card-container">
       <div class="card" v-for="order in orders" :key="order.id">
+        <button class="delete-button" @click="deleteOrder(order.id)">×</button>
         <h3>Заказ #{{ order.id }}</h3>
         <p>Дата: {{ order.date }}</p>
       </div>
@@ -26,6 +28,7 @@
     <h2>Заказчики</h2>
     <div class="card-container">
       <div class="card" v-for="orderer in orderers" :key="orderer.id">
+        <button class="delete-button" @click="deleteOrderer(orderer.id)">×</button>
         <h3>{{ orderer.name }}</h3>
       </div>
     </div>
@@ -33,6 +36,7 @@
     <h2>Производственные цеха</h2>
     <div class="card-container">
       <div class="card" v-for="factor in factors" :key="factor.id">
+        <button class="delete-button" @click="deleteFactor(factor.id)">×</button>
         <h3>Тип изделий: {{ factor.type_item }}</h3>
         <p>Сорт муки: {{ factor.sort_muka }}</p>
       </div>
@@ -41,12 +45,14 @@
     <h2>Продукция</h2>
     <div class="card-container">
       <div class="card" v-for="production in productions" :key="production.id">
+        <button class="delete-button" @click="deleteProduction(production.id)">×</button>
         <h3>Код продукции: {{ production.code_items }}</h3>
         <p>Готовность продукции: {{ production.is_ready ? 'готов' : 'не готов' }}</p>
       </div>
     </div>
   </div>
 </template>
+
 
 <script>
 import axios from 'axios';
@@ -102,7 +108,7 @@ export default {
         });
         this.orderers = response.data;
       } catch (error) {
-        console.error('Ошибка при загрузке данных заказов:', error);
+        console.error('Ошибка при загрузке данных заказчиков:', error);
       }
     },
     async fetchFactors() {
@@ -114,7 +120,7 @@ export default {
         });
         this.factors = response.data;
       } catch (error) {
-        console.error('Ошибка при загрузке данных заказов:', error);
+        console.error('Ошибка при загрузке данных производственных цехов:', error);
       }
     },
     async fetchProduction() {
@@ -126,11 +132,52 @@ export default {
         });
         this.productions = response.data;
       } catch (error) {
-        console.error('Ошибка при загрузке данных заказов:', error);
+        console.error('Ошибка при загрузке данных продукции:', error);
+      }
+    },
+    async deleteItem(id) {
+      try {
+        await axios.delete(`http://localhost:8000/api/v1/item/${id}/`);
+        this.items = this.items.filter(item => item.id !== id);
+      } catch (error) {
+        console.error('Ошибка при удалении изделия:', error);
+      }
+    },
+    async deleteOrder(id) {
+      try {
+        await axios.delete(`http://localhost:8000/api/v1/order/${id}/`);
+        this.orders = this.orders.filter(order => order.id !== id);
+      } catch (error) {
+        console.error('Ошибка при удалении заказа:', error);
+      }
+    },
+    async deleteOrderer(id) {
+      try {
+        await axios.delete(`http://localhost:8000/api/v1/orderer/${id}/`);
+        this.orderers = this.orderers.filter(orderer => orderer.id !== id);
+      } catch (error) {
+        console.error('Ошибка при удалении заказчика:', error);
+      }
+    },
+    async deleteFactor(id) {
+      try {
+        await axios.delete(`http://localhost:8000/api/v1/factor/${id}/`);
+        this.factors = this.factors.filter(factor => factor.id !== id);
+      } catch (error) {
+        console.error('Ошибка при удалении производственного цеха:', error);
+      }
+    },
+    async deleteProduction(id) {
+      try {
+        await axios.delete(`http://localhost:8000/api/v1/production/${id}/`);
+        this.productions = this.productions.filter(production => production.id !== id);
+      } catch (error) {
+        console.error('Ошибка при удалении продукции:', error);
       }
     }
   }
 };
+
 </script>
 
 <style scoped>
@@ -145,7 +192,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('src/assets/bulochki.jpg');
+  background-image: url('src/assets/bulochki.jpg'); /* Замените на реальную ссылку */
   background-size: cover;
   background-position: center;
   filter: blur(10px);
@@ -155,7 +202,8 @@ export default {
 .user-info {
   position: absolute;
   top: 10px;
-  right: 10px;
+  left: 80%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
   z-index: 1;
@@ -181,6 +229,7 @@ export default {
 }
 
 .card {
+  position: relative;
   flex: 0 0 auto;
   width: 200px;
   margin: 10px;
@@ -191,6 +240,26 @@ export default {
   background-color: rgba(255, 255, 255, 0.8); /* Полупрозрачный фон для лучшей читаемости */
   z-index: 0;
 }
+
+.delete-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.delete-button:hover {
+  background-color: darkred;
+}
 </style>
-
-
